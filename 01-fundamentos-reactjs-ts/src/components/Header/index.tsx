@@ -1,8 +1,8 @@
 import RocketIcon from '../../assets/rocket.svg'
 
-const Header = () => {
+export const Header = () => {
   return (
-    <header className="bg-gray-700 w-full h-52 flex items-center justify-center">
+    <header className="bg-black w-full h-52 flex items-center justify-center">
       <div className="flex items-center justify-center gap-3">
         <img src={RocketIcon} alt="rocket icon" />
         <p>
@@ -13,5 +13,3 @@ const Header = () => {
     </header>
   )
 }
-
-export default Header
