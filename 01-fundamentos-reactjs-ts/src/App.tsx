@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState, MouseEvent } from 'react'
 
 import { Header } from './components/Header'
 import { Input } from './components/Input'
@@ -14,34 +14,35 @@ function App() {
 
   useEffect(() => {
     try {
-      fetch('http://localhost:3004/todos')
-        .then((response) => response.json())
-        .then((data) => setTodos(data))
-      setCompletedCount(completedCount)
+      api.get<Todo[]>('/todos').then((response) => {
+        setTodos(response.data)
+
+        response.data.map(
+          (todo) => todo.isCompleted && setCompletedCount((prev) => prev + 1)
+        )
+      })
     } catch (error) {
       console.log(error)
     }
   }, [])
 
-  const updateTodos = async (updatedTodos: Todo[]) => {
+  const handleDeleteClick = async (e: MouseEvent, todoId: Todo['id']) => {
+    e.preventDefault()
+
+    const updatedTodos = todos.filter((todo) => todo.id !== todoId)
+
+    let updatedIsCompletedCount = 0
+    updatedTodos.forEach(
+      (todo) => todo.isCompleted && updatedIsCompletedCount++
+    )
+    setCompletedCount(updatedIsCompletedCount)
+
     try {
-      await api.put('/todos', {
-        ...updatedTodos
-      })
+      await api.delete(`/todos/${todoId}`)
       setTodos(updatedTodos)
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const handleDeleteClick = (
-    e: React.MouseEvent<SVGElement, MouseEvent>,
-    id: Todo['id']
-  ) => {
-    e.preventDefault()
-
-    const updatedTodos = todos.filter((todo) => todo.id !== id)
-    updateTodos(updatedTodos)
   }
 
   const handleSubmitNewTask = async (e: FormEvent) => {
@@ -64,7 +65,7 @@ function App() {
     }
   }
 
-  const handleIsCompletedChange = (todoId: Todo['id']) => {
+  const handleIsCompletedChange = async (todoId: Todo['id']) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === todoId) {
         return {
@@ -74,7 +75,19 @@ function App() {
       }
       return todo
     })
-    updateTodos(updatedTodos)
+
+    let updatedIsCompletedCount = 0
+    updatedTodos.forEach(
+      (todo) => todo.isCompleted && updatedIsCompletedCount++
+    )
+    setCompletedCount(updatedIsCompletedCount)
+
+    try {
+      await api.patch(`/todos/${todoId}`, updatedTodos[todoId])
+      setTodos(updatedTodos)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -95,10 +108,10 @@ function App() {
         </form>
         <div className="pt-16 pb-8 flex items-center justify-between">
           <div className="flex items-center gap-4 text-[#4EA8DE]">
-            <p>Tarefas criadas</p> <span>0</span>
+            <p>Tarefas criadas</p> <span>{todos.length}</span>
           </div>
           <div className="flex items-center gap-4 text-[#5E60CE]">
-            <p>Concluídas</p> <span>0</span>
+            <p>Concluídas</p> <span>{completedCount}</span>
           </div>
         </div>
         <ul>
