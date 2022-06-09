@@ -1,6 +1,6 @@
 import { createGlobalStyle, css } from 'styled-components'
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
@@ -14,11 +14,8 @@ const GlobalStyles = createGlobalStyle`
     cursor: not-allowed;
   }
   ${({ theme }) => css`
-    html {
-      font-size: 62.5%; //10px - 1rem
-    }
     body {
-      font-size: ${theme.font.sizes.large};
+      font-size: ${theme.font.sizes.regular};
       -webkit-font-smoothing: antialiased;
     }
     body,
