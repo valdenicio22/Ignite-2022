@@ -2,37 +2,39 @@ export default {
   border: {
     radius: {
       medium: '0.8rem',
-      large: '1.5rem',
-    },
+      large: '1.5rem'
+    }
   },
   font: {
     family: 'Poppins, sans-serif',
     weight: {
       regular: 400,
       semiBold: 500,
-      bold: 700,
+      bold: 700
     },
     sizes: {
-      xxxsmall: '0.8rem', // 8px
-      xxsmall: '1rem',
-      xsmall: '1.2rem',
-      small: '1.4rem',
-      medium: '1.6rem',
-      large: '2.0rem',
-      xlarge: '2.4rem', // 24px
-    },
+      xsmall: '0.75rem', // 12px
+      small: '0.875rem',
+      regular: '1rem',
+      xlarge: '2.5rem' // 40px
+    }
   },
   colors: {
-    primary: '#EC0344',
-    lightModeBg: '#FFFFFF',
-    darkModeBg: '#212121',
-    white: '#FFFFFF',
-    lightGray: '#E0E0E0',
-    mediumGray: '#BDBDBD',
-    darkGray: '#666666',
+    gray100: '#F2F2F2',
+    gray200: '#D9D9D9',
+    gray300: '#808080',
+    gray400: '#333333',
+    gray500: '#262626',
+    gray600: '#1A1A1A',
+    gray700: '#0D0D0D',
+
+    purple: '#8284FA',
+    purpleDark: '#5E60CE',
+    blue: '#4EA8DE',
+    blueDark: '#1E6F9F',
+    danger: '#E25858'
   },
   containers: {
-    mobile: '34.8rem', //428px - 80 = 348px
-    desktop: '65rem', //650px
-  },
-} as const;
+    desktop: '46rem'
+  }
+} as const
