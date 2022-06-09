@@ -13,7 +13,7 @@
     {
       "id": 3,
       "description": "Todo 3 - Todo 3",
-      "isCompleted": true
+      "isCompleted": false
     }
   ]
 }

@@ -1,11 +1,11 @@
-import { FormEvent, useEffect, useState, MouseEvent } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 import { Header } from './components/Header'
 import { Input } from './components/Input'
-import { AiOutlinePlusCircle, AiOutlineEdit } from 'react-icons/ai'
-import { HiOutlineTrash } from 'react-icons/hi'
+import { AiOutlinePlusCircle } from 'react-icons/ai'
 import { Todo } from './types/types'
 import { api } from './service/api'
+import TodoItem from './components/TodoItem'
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -26,9 +26,7 @@ function App() {
     }
   }, [])
 
-  const handleDeleteClick = async (e: MouseEvent, todoId: Todo['id']) => {
-    e.preventDefault()
-
+  const handleDeleteClick = async (todoId: Todo['id']) => {
     const updatedTodos = todos.filter((todo) => todo.id !== todoId)
 
     let updatedIsCompletedCount = 0
@@ -116,26 +114,13 @@ function App() {
         </div>
         <ul>
           {todos.map((todo) => (
-            <li
+            <TodoItem
               key={todo.id}
-              className="flex items-center justify-between w-full gap-3 p-4 bg-gray-400 text-white mb-4 rounded-lg"
-            >
-              <input
-                type="checkbox"
-                checked={todo.isCompleted}
-                onChange={() => handleIsCompletedChange(todo.id)}
-              />
-              <p>{todo.description}</p>
-              <div className="flex items-center gap-4">
-                <AiOutlineEdit size={20} />
-                <HiOutlineTrash
-                  size={20}
-                  role="button"
-                  onClick={(e) => handleDeleteClick(e, todo.id)}
-                  className=" hover:text-[#5E60CE]"
-                />
-              </div>
-            </li>
+              todo={todo}
+              handleDeleteClick={handleDeleteClick}
+              handleIsCompletedChange={handleIsCompletedChange}
+              setTodos={setTodos}
+            />
           ))}
         </ul>
       </div>
