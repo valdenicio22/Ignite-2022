@@ -32,7 +32,10 @@ export default {
     purpleDark: '#5E60CE',
     blue: '#4EA8DE',
     blueDark: '#1E6F9F',
-    danger: '#E25858'
+    danger: '#E25858',
+
+    white: '#FFFFFF',
+    black: '#000000'
   },
   containers: {
     desktop: '46rem'
