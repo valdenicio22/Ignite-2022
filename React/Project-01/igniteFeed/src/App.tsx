@@ -11,6 +11,7 @@ const App = () => {
       <Header />
       <S.Main>
         <Sidebar />
+        
         <div>Posts spot</div>
       </S.Main>
 

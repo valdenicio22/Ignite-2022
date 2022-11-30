@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${theme.colors.gray300};
     -webkit-font-smoothing: antialiased;
   }
-  body, input, textarea, button {
+  body, input, textarea, button { 
     font-family: ${theme.font.family}, sans-serif;
     font-weight: ${theme.font.weight.regular};
     font-size: 1rem;
